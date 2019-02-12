@@ -6,7 +6,7 @@ from fastai.text import *
 DATA_PATH = Path('../datasets/20news')
 DATA_PATH.mkdir(exist_ok=True)
 
-bs = 12
+bs = 32
 
 data_lm = TextLMDataBunch.load(DATA_PATH, bs=bs, cache_name='tmp_lm')
 
