@@ -1,4 +1,5 @@
 from fastai.text import *
+from azureml.core.model import Model
 from html.parser import HTMLParser
 
 class HTMLTextExtractor(html.parser.HTMLParser):
@@ -32,6 +33,11 @@ def load_model(classifier_filename):
     
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
     
+    if torch.cuda.is_available():
+        print('USING CUDA-GPU')
+    else:
+        print('USING CPU')
+    
     state = torch.load(Path(classifier_filename).open('rb'), map_location=device)
     
     if set(state.keys()) == {'model', 'model_params', 'vocab', 'classes'}:
@@ -41,14 +47,13 @@ def load_model(classifier_filename):
         classes = state['classes']
     else:
         raise RuntimeError("Invalid model provided.")
-            
+        
     # Turn it into a string to int mapping (which is what we need)
     stoi = collections.defaultdict(lambda:0, {str(v):int(k) for k,v in enumerate(itos)})
     
     # Get model reference from parameters (even if they are not used at runtime)
     model = get_rnn_classifier(bptt=model_params['bptt'],
                                max_seq=model_params['max_len'],
-                               #model_params['n_class'],#removed in 1.0.41
                                vocab_sz=model_params['vocab_size'], 
                                emb_sz=model_params['emb_sz'],
                                n_hid=model_params['nh'],
@@ -78,9 +83,9 @@ def predict_text(stoi, model, lang, text):
     # We only have a single input, so turn it into a 1x1 array
     texts = [text]
 
-    # Tokenize using the FastAI wrapper around spaCy
+    # Tokenize using the fastai wrapper around spaCy
     pre_rules = [custom_tagstrip] + defaults.text_pre_rules
-    tokens = Tokenizer(lang=lang, pre_rules=pre_rules).process_all(texts)
+    tokens = Tokenizer(lang=lang, pre_rules=pre_rules, n_cpus=1).process_all(texts)
 
     # Turn into integers for each word
     encoded = np.array([[stoi[o] for o in p] for p in tokens], dtype=np.int64)
@@ -102,11 +107,15 @@ def init():
     global model
     
     # Retrieve the path to the model file using the model name
-    model_path = "../../datasets/20news/models/final_for_prod.pth"
+    model_path = Model.get_model_path(model_name='ps-fastai-nlp-classification')
     stoi, classes, model = load_model(model_path)
 
 def run(raw_data):
-    deser_obj = raw_data
+    deser_obj = json.loads(raw_data)
+    
+    if not set(deser_obj.keys()) == {'lang', 'text' }:
+        return { "error": "invalid data" }
+    
     lang = deser_obj['lang']
     text = deser_obj['text']
     
@@ -114,15 +123,6 @@ def run(raw_data):
     scores = predict_text(stoi, model, lang, text)
     pred_class = np.argmax(scores)
     
-    print(f"Class: {classes[pred_class]} ({scores[pred_class]})")
-    
-    # You can return any data type as long as it is JSON-serializable.
+    # You can return any data type as long as it is JSON-serializable
     # We have to cast numpy data types (non-serializable) to standard types
-    # See: https://stackoverflow.com/questions/26646362/numpy-array-is-not-json-serializable
-    result = { "label": classes[pred_class], "label_index": int(pred_class), "label_score": float(scores[pred_class]), "all_scores": scores.tolist() }
-    
-    return result
-
-if __name__ == '__main__':
-    init()
-    run({"lang": sys.argv[1], "text": sys.argv[2]})
+    return { "label": classes[pred_class], "label_index": int(pred_class), "label_score": float(scores[pred_class]), "all_scores": scores.tolist() }
