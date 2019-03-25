@@ -1,0 +1,22 @@
+(venv_psfastai10) PS D:\Projects\D3\ps-fastai\lm> python .\pretrain_lm_v1.py --dir-path data/wiki/it/ --cuda-id 0 --lr 5e-3 --cl 15 --bs 32
+dir_path data/wiki/it/; cuda_id 0; cl 15; bs 32; backwards False; lr 0.005; sampled True; pretrain_id
+Loaded data
+Learner configured
+epoch     train_loss  valid_loss  accuracy
+1         3.997335    4.044007    0.309950
+2         3.878047    4.009957    0.314792
+3         3.921615    3.972760    0.318761
+4         3.880586    3.929764    0.323076
+5         3.839962    3.907807    0.325247
+6         3.816855    3.876952    0.327796
+7         3.796457    3.836617    0.332811
+8         3.758575    3.801867    0.335576
+9         3.762910    3.768533    0.340197
+10        3.707580    3.720370    0.344604
+11        3.704367    3.687232    0.350573
+12        3.676359    3.652840    0.354833
+13        3.617305    3.620502    0.359683
+14        3.613587    3.602075    0.362641
+15        3.611898    3.596128    0.363222
+
+LM ITA model (LSTM); valid-loss: 3.596128 (perplexity: 36.45)  accuracy: 0.363222

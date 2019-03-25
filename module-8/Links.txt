@@ -1,0 +1,14 @@
+Transformer Architectures
+https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html
+
+ELMo
+https://allennlp.org/elmo
+
+BERT
+https://ai.googleblog.com/2018/11/open-sourcing-bert-state-of-art-pre.html
+
+Transformer XL Architectures
+https://ai.googleblog.com/2019/01/transformer-xl-unleashing-potential-of.html
+
+Fast.AI Courses
+https://www.fast.ai/
