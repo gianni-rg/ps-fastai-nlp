@@ -5,9 +5,11 @@ This is the official repository for all the material accompanying my Pluralsight
 ## Content
 
 - Module 3: setup a development environment
-- Module 5: training a document classifier
+- Module 4: training a document classifier
+- Module 5: using Deep Learning for NLP
 - Module 6: going to production, with Azure Machine Learning
 - Module 7: training a custom language model from scratch
+- Module 8: recapping and next steps
 
 ## License and Copyright
 
