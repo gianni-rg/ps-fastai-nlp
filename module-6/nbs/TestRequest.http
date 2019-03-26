@@ -1,0 +1,7 @@
+POST http://52.142.238.151:80/score  HTTP/1.1
+content-type: application/json
+
+{
+     "lang": "en",
+     "text": "GeForce RTX graphics cards are the fastest in the world, giving PC gamers the very best framerates and experiences in each and every game. Now, RTX is coming to laptops, starting with over 40 new GeForce RTX laptops, in 100-plus configurations, from partners around the world. And like desktop GeForce RTX graphics cards, RTX laptops have the hardware required for real-time ray tracing and AI-enhanced graphics, enabling you to experience immersive, lifelike visual effects anywhere, anytime."
+}

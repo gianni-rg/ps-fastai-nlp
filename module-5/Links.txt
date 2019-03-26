@@ -1,0 +1,11 @@
+Universal Language Model Fine-tuning for Text Classification
+https://arxiv.org/abs/1801.06146
+
+Cyclical Learning Rates for Training Neural Networks, by Leslie Smith
+https://arxiv.org/abs/1506.01186
+
+A Disciplined Approach To Neural Networkhyper-Parameters: Part1 – Learning Rate, Batch Size, Momentum And Weight Decay
+https://arxiv.org/abs/1803.09820
+
+Super-Convergence: Very Fast Training of Neural Networks Using Large Learning Rates
+https://arxiv.org/abs/1708.07120
