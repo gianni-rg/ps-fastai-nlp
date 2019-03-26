@@ -1,6 +1,6 @@
 # Getting Started NLP Deep Learning with PyTorch and fastai
 
-This is the official repository for all the material accompanying my Pluralsight course "Getting Started NLP Deep Learning with PyTorch and fastai", you can find [here](https://).
+This is the official repository for all the material accompanying my Pluralsight course "Getting Started NLP Deep Learning with PyTorch and fastai", you can find [here](https://www.pluralsight.com/courses/getting-started-nlp-deep-learning-pytorch-fastai).
 
 ## Content
 
